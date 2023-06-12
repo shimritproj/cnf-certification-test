@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/Masterminds/semver/v3 v3.2.0 // indirect
 	github.com/basgys/goxml2json v1.1.0
-	github.com/sirupsen/logrus v1.9.0
+	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.7.0
 	github.com/stretchr/testify v1.8.2
 	github.com/test-network-function/test-network-function-claim v1.0.17
@@ -13,7 +13,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
 
-require k8s.io/client-go v0.27.1
+require k8s.io/client-go v0.27.2
 
 require (
 	github.com/kelseyhightower/envconfig v1.4.0
@@ -25,8 +25,8 @@ require (
 	github.com/operator-framework/operator-lifecycle-manager v0.20.0
 	github.com/pkg/errors v0.9.1 // indirect
 	helm.sh/helm/v3 v3.12.0
-	k8s.io/api v0.27.1
-	k8s.io/apimachinery v0.27.1
+	k8s.io/api v0.27.2
+	k8s.io/apimachinery v0.27.2
 	k8s.io/klog/v2 v2.100.1 // indirect
 )
 
@@ -214,7 +214,7 @@ require (
 	github.com/k8snetworkplumbingwg/network-attachment-definition-client v1.4.0
 	github.com/openshift/machine-config-operator v0.0.1-0.20230407192800-580aa60b1551
 	github.com/redhat-openshift-ecosystem/openshift-preflight v0.0.0-20230417204801-c4836d6660ee
-	github.com/test-network-function/privileged-daemonset v1.0.2
+	github.com/test-network-function/privileged-daemonset v1.0.4
 	gopkg.in/yaml.v3 v3.0.1
 	k8s.io/kubectl v0.27.1
 )
