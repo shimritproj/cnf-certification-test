@@ -55,19 +55,19 @@ func FindCrObjectByNameByNamespace(scalesGetter scale.ScalesGetter, ns, name str
 	return crScale, nil
 }
 
-func findDeploymentsMatchingAtLeastOneLabel(labels []labelObject, namespace string, deployment *appsv1.Deployment, allDeployments []appsv1.Deployment) []appsv1.Deployment {
+func isDeploymentsPodsMatchingAtLeastOneLabel(labels []labelObject, namespace string, deployment *appsv1.Deployment) bool {
 	for _, aLabelObject := range labels {
 		log.Debug("Searching pods in deployment %q found in ns %q using label %s=%s", deployment.Name, namespace, aLabelObject.LabelKey, aLabelObject.LabelValue)
 		if deployment.Spec.Template.ObjectMeta.Labels[aLabelObject.LabelKey] == aLabelObject.LabelValue {
-			allDeployments = append(allDeployments, *deployment)
 			log.Info("Deployment %s found in ns=%s", deployment.Name, namespace)
+			return true
 		}
 	}
-	return allDeployments
+	return false
 }
 
 //nolint:dupl
-func findDeploymentsUnderTest(
+func findDeploymentsByLabels(
 	appClient appv1client.AppsV1Interface,
 	labels []labelObject,
 	namespaces []string,
@@ -84,7 +84,10 @@ func findDeploymentsUnderTest(
 		}
 		for i := 0; i < len(dps.Items); i++ {
 			if len(labels) > 0 {
-				allDeployments = findDeploymentsMatchingAtLeastOneLabel(labels, ns, &dps.Items[i], allDeployments)
+				if isDeploymentsPodsMatchingAtLeastOneLabel(labels, ns, &dps.Items[i]) {
+					allDeployments = append(allDeployments, dps.Items[i])
+					continue
+				}
 			} else {
 				// If labels are not provided in the namespace under test, they are tested by the CNF suite
 				log.Debug("Searching pods in deployment %q found in ns %q without label", dps.Items[i].Name, ns)
@@ -99,19 +102,19 @@ func findDeploymentsUnderTest(
 	return allDeployments
 }
 
-func findStatefulSetsMatchingAtLeastOneLabel(labels []labelObject, namespace string, statefulSet *appsv1.StatefulSet, allStatefulSets []appsv1.StatefulSet) []appsv1.StatefulSet {
+func isStatefulSetsMatchingAtLeastOneLabel(labels []labelObject, namespace string, statefulSet *appsv1.StatefulSet) bool {
 	for _, aLabelObject := range labels {
 		log.Debug("Searching pods in statefulset %q found in ns %q using label %s=%s", statefulSet.Name, namespace, aLabelObject.LabelKey, aLabelObject.LabelValue)
 		if statefulSet.Spec.Template.ObjectMeta.Labels[aLabelObject.LabelKey] == aLabelObject.LabelValue {
-			allStatefulSets = append(allStatefulSets, *statefulSet)
 			log.Info("StatefulSet %s found in ns=%s", statefulSet.Name, namespace)
+			return true
 		}
 	}
-	return allStatefulSets
+	return false
 }
 
 //nolint:dupl
-func findStatefulSetsUnderTest(
+func findStatefulSetsByLabels(
 	appClient appv1client.AppsV1Interface,
 	labels []labelObject,
 	namespaces []string,
@@ -128,7 +131,10 @@ func findStatefulSetsUnderTest(
 		}
 		for i := 0; i < len(statefulSet.Items); i++ {
 			if len(labels) > 0 {
-				allStatefulSets = findStatefulSetsMatchingAtLeastOneLabel(labels, ns, &statefulSet.Items[i], allStatefulSets)
+				if isStatefulSetsMatchingAtLeastOneLabel(labels, ns, &statefulSet.Items[i]) {
+					allStatefulSets = append(allStatefulSets, statefulSet.Items[i])
+					continue
+				}
 			} else {
 				// If labels are not provided in the namespace under test, they are tested by the CNF suite
 				log.Debug("Searching pods in statefulset %q found in ns %q without label", statefulSet.Items[i].Name, ns)

@@ -78,7 +78,8 @@ func findOperatorsMatchingAtLeastOneLabel(olmClient clientOlm.Interface, labels 
 	}
 	return csvList
 }
-func findOperatorsUnderTest(olmClient clientOlm.Interface, labels []labelObject, namespaces []configuration.Namespace) (csvs []*olmv1Alpha.ClusterServiceVersion) {
+
+func findOperatorsByLabels(olmClient clientOlm.Interface, labels []labelObject, namespaces []configuration.Namespace) (csvs []*olmv1Alpha.ClusterServiceVersion) {
 	csvs = []*olmv1Alpha.ClusterServiceVersion{}
 	var csvList *olmv1Alpha.ClusterServiceVersionList
 	var err error

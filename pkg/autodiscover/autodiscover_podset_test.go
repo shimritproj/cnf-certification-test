@@ -99,7 +99,7 @@ func TestFindDeploymentsUnderTest(t *testing.T) {
 		testRuntimeObjects = append(testRuntimeObjects, generateDeployment(tc.testDeploymentName, tc.testDeploymentNamespace, tc.queryLabel))
 		oc := clientsholder.GetTestClientsHolder(testRuntimeObjects)
 
-		deployments := findDeploymentsUnderTest(oc.K8sClient.AppsV1(), testLabel, testNamespaces)
+		deployments := findDeploymentsByLabels(oc.K8sClient.AppsV1(), testLabel, testNamespaces)
 		assert.Equal(t, tc.expectedResults, deployments)
 	}
 }
@@ -174,7 +174,7 @@ func TestFindStatefulSetsUnderTest(t *testing.T) {
 		testRuntimeObjects = append(testRuntimeObjects, generateStatefulSet(tc.testStatefulSetName, tc.testStatefulSetNamespace, tc.queryLabel))
 		oc := clientsholder.GetTestClientsHolder(testRuntimeObjects)
 
-		statefulSets := findStatefulSetsUnderTest(oc.K8sClient.AppsV1(), testLabel, testNamespaces)
+		statefulSets := findStatefulSetsByLabels(oc.K8sClient.AppsV1(), testLabel, testNamespaces)
 		assert.Equal(t, tc.expectedResults, statefulSets)
 	}
 }
