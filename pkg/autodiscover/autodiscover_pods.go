@@ -40,7 +40,8 @@ func findPodsMatchingAtLeastOneLabel(oc corev1client.CoreV1Interface, labels []l
 	}
 	return allPods
 }
-func findPodsUnderTest(oc corev1client.CoreV1Interface, labels []labelObject, namespaces []string) (runningPods, allPods []corev1.Pod) {
+
+func findPodsByLabels(oc corev1client.CoreV1Interface, labels []labelObject, namespaces []string) (runningPods, allPods []corev1.Pod) {
 	runningPods = []corev1.Pod{}
 	allPods = []corev1.Pod{}
 	// Iterate through namespaces
