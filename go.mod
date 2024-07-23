@@ -21,7 +21,7 @@ require (
 	github.com/operator-framework/api v0.26.0
 	github.com/operator-framework/operator-lifecycle-manager v0.20.0
 	github.com/pkg/errors v0.9.1 // indirect
-	helm.sh/helm/v3 v3.15.2
+	helm.sh/helm/v3 v3.15.3
 	k8s.io/api v0.30.2
 	k8s.io/apimachinery v0.30.2
 	k8s.io/klog/v2 v2.120.1 // indirect
@@ -215,7 +215,7 @@ require (
 	github.com/manifoldco/promptui v0.9.0
 	github.com/redhat-openshift-ecosystem/openshift-preflight v0.0.0-20240605154909-3bdeab0e72f3
 	github.com/robert-nix/ansihtml v1.0.1
-	github.com/test-network-function/oct v0.0.12
+	github.com/test-network-function/oct v0.0.16
 	github.com/test-network-function/privileged-daemonset v1.0.27
 	golang.org/x/term v0.22.0
 	gopkg.in/yaml.v3 v3.0.1
